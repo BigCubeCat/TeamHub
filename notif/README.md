@@ -18,3 +18,8 @@ for "read" notification:
 }
 ```
 
+### Create notification
+For add notification, use ordinary `POST` request:
+`/:name`
+name - user id
+
