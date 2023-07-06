@@ -10,13 +10,12 @@ wss.on('connection', function connection(ws) {
   var userId: string = ""; // TODO: fix it
   ws.on('message', function message(data) {
     let json = JSON.parse(data.toString());
-    console.log(json)
     if (json.del) {
       delNotif(userId);
+      return;
     }
     if (json.user) {
       userId = json.user;
-      console.log(userId)
     }
   });
   ws.on('close', function close(data) {
@@ -28,7 +27,6 @@ wss.on('connection', function connection(ws) {
         return
       }
       const res = await getValue(userId);
-      console.log(userId, res)
       if (res) {
         ws.send("notification");
       }
@@ -56,7 +54,8 @@ app.use(express.json());
 
 // POST method route
 app.post('/:name', (req, res) => {
-  console.log(req.params.name)
+  const userId = req.params.name;
+  setValue(userId, "norif");
   res.sendStatus(200);
 })
 
