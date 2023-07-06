@@ -18,7 +18,7 @@ wss.on('connection', function connection(ws) {
   });
   setInterval(function() {
     const req = async () => {
-      const res = await getValue(`user_${userId}`);
+      const res = await getValue(userId);
       console.log(userId, res)
       if (res) {
         ws.send("notification");
