@@ -1,34 +1,32 @@
+import config from "./config";
 import { WebSocketServer } from 'ws';
+import { getValue, initRedisClient, setValue } from "./redis_client";
 
-const wss = new WebSocketServer({ port: 8888 });
-
-import { createClient } from 'redis';
-
-const fetchAPI = async () => {
-  const client = createClient({
-    url: 'redis://127.0.0.1:6379'
-  });
-
-  client.on('error', err => console.log('Redis Client Error', err));
-  client.connect();
-
-
-  await client.set('key', 'value');
-  const value = await client.get('key');
-  console.log(value)
-}
-fetchAPI().catch(console.error)
-
-
+const wss = new WebSocketServer({ port: config.PORT });
+initRedisClient(config.REDIS_URI);
 
 
 wss.on('connection', function connection(ws) {
+  var userId: string = "";
   ws.on('message', function message(data) {
-    ws.send(`message ${data}`);
+    userId = data.toString();
+    setValue(userId, "yes");
+    console.log(data);
   });
   ws.on('close', function close(data) {
     console.log(`closed ${data}`);
   });
+  setInterval(function() {
+    const req = async () => {
+      const res = await getValue(`user_${userId}`);
+      console.log(userId, res)
+      if (res) {
+        ws.send("notification");
+      }
+    }
+    req().catch(console.error)
+
+  }, config.UPDATE_DELAY);
   ws.send('something');
 });
 
