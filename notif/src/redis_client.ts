@@ -2,7 +2,7 @@ import { RedisClientType, createClient } from 'redis';
 
 let client: RedisClientType;
 
-function initRedisClient(uri: string) {
+export function initRedisClient(uri: string) {
   client = createClient({
     url: uri
   });
@@ -17,12 +17,29 @@ function connectClient() {
   fetchClient().catch(console.error);
 }
 
-async function setValue(key: string, value: string) {
-  await client.set(key, value);
+/*
+ * setValue(key:string, value: string)
+ * set key-value :-)
+ */
+export function setValue(key: string, value: string) {
+  const res = async () => await client.set(key, value);
+  res().catch(console.error);
 }
 
-async function getValue(key: string) {
+/*
+ * getValue(key: string)
+ * return value by key
+ */
+export async function getValue(key: string) {
   return await client.get(key);
 }
 
-export { initRedisClient, client, setValue, getValue };
+/*
+ * delNotif(key: string)
+ * delete notification from redis
+ */
+export function delNotif(key: string) {
+  const res = async () => await client.del(key);
+  res().catch(console.error)
+}
+
