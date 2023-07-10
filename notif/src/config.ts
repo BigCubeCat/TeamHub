@@ -2,26 +2,22 @@ interface ENV {
   UPDATE_DELAY: number | undefined;
   EXPRESS_PORT: number | undefined;
   WS_PORT: number | undefined;
-  REDIS_URL: string | undefined;
-  REDIS_PASSWORD: string | undefined;
+  REDIS_PORT: number | undefined;
 };
 
 interface Config {
   UPDATE_DELAY: number;
   EXPRESS_PORT: number;
   WS_PORT: number;
-  REDIS_URL: string;
-  REDIS_PASSWORD: string;
+  REDIS_PORT: number;
 };
 
 const getConfig = (): ENV => {
-  console.log(process.env)
   return {
     UPDATE_DELAY: process.env.UPDATE_DELAY ? Number(process.env.UPDATE_DELAY) : undefined,
     WS_PORT: process.env.WS_PORT ? Number(process.env.WS_PORT) : undefined,
     EXPRESS_PORT: process.env.EXPRESS_PORT ? Number(process.env.EXPRESS_PORT) : undefined,
-    REDIS_URL: process.env.REDIS_URL,
-    REDIS_PASSWORD: process.env.REDIS_PASSWORD,
+    REDIS_PORT: process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : undefined,
   };
 };
 

@@ -3,7 +3,7 @@ import { WebSocketServer } from 'ws';
 import { delNotif, getValue, initRedisClient, setValue } from "./redis_client";
 
 const wss = new WebSocketServer({ port: config.WS_PORT });
-initRedisClient(config.REDIS_PASSWORD, config.REDIS_URL);
+initRedisClient(config.REDIS_PORT);
 
 
 wss.on('connection', function connection(ws) {
@@ -61,6 +61,6 @@ app.post('/:name', (req, res) => {
 })
 
 app.listen(config.EXPRESS_PORT, () => {
-  console.log('Express server listening on port 5000');
+  console.log(`Express server listening on port ${config.EXPRESS_PORT}`);
 });
 

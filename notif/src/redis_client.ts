@@ -2,8 +2,8 @@ import { RedisClientType, createClient } from 'redis';
 
 let client: RedisClientType;
 
-export function initRedisClient(password: string, url: string) {
-  client = createClient({ url: url, password: password });
+export function initRedisClient(port: number) {
+  client = createClient({ socket: { host: 'redis', port: port } });
   connectClient();
 }
 
