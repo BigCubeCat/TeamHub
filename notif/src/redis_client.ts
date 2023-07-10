@@ -3,8 +3,7 @@ import { RedisClientType, createClient } from 'redis';
 let client: RedisClientType;
 
 export function initRedisClient(password: string, url: string) {
-  console.log(password);
-  client = createClient({ url, password });
+  client = createClient({ url: url, password: password });
   connectClient();
 }
 
