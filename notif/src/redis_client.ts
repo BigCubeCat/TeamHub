@@ -2,10 +2,9 @@ import { RedisClientType, createClient } from 'redis';
 
 let client: RedisClientType;
 
-export function initRedisClient(uri: string) {
-  client = createClient({
-    url: uri
-  });
+export function initRedisClient(password: string, url: string) {
+  console.log(password);
+  client = createClient({ url, password });
   connectClient();
 }
 

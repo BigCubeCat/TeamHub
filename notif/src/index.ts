@@ -3,12 +3,13 @@ import { WebSocketServer } from 'ws';
 import { delNotif, getValue, initRedisClient, setValue } from "./redis_client";
 
 const wss = new WebSocketServer({ port: config.WS_PORT });
-initRedisClient(config.REDIS_URI);
+initRedisClient(config.REDIS_PASSWORD, config.REDIS_URI);
 
 
 wss.on('connection', function connection(ws) {
   var userId: string = ""; // TODO: fix it
   ws.on('message', function message(data) {
+    console.log(data.toString());
     let json = JSON.parse(data.toString());
     if (json.del) {
       delNotif(userId);
