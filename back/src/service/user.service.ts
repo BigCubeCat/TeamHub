@@ -12,16 +12,27 @@ export async function register(user: I_UserDocument): Promise<void> {
   }
 }
 
+export async function getUser(_id: string) {
+  try {
+    const foundUser = await UserModel.findOne({ _id });
+    if (!foundUser) {
+      throw new Error("User incorrect");
+    }
+    return foundUser;
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+}
+
 export async function login(user: I_UserDocument) {
   try {
     const foundUser = await UserModel.findOne({ username: user.username });
-
+    console.log(foundUser)
     if (!foundUser) {
       throw new Error('Name of user is not correct');
     }
-
     const isMatch = bcrypt.compareSync(user.password, foundUser.password);
-
     if (isMatch) {
       const token = jwt.sign({ _id: foundUser._id?.toString(), username: foundUser.username }, env.JWT_SECRET, {
         expiresIn: '20 days',

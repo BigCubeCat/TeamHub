@@ -12,6 +12,17 @@ export const loginOne = async (req: Request, res: Response) => {
   }
 };
 
+export const getMe = async (req: Request, res: Response) => {
+  try {
+    const token = (req as CustomRequest).token;
+    const tokenStirng = (typeof token === "string") ? token : token?._id;
+    const foundUser = await userServices.getUser(tokenStirng);
+    res.status(200).send(foundUser);
+  } catch (error) {
+    return res.status(500).send(getErrorMessage(error));
+  }
+};
+
 export const registerOne = async (req: Request, res: Response) => {
   try {
     await userServices.register(req.body);
