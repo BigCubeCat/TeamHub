@@ -23,17 +23,16 @@ export async function login(user: I_UserDocument) {
     const isMatch = bcrypt.compareSync(user.password, foundUser.password);
 
     if (isMatch) {
-      const token = jwt.sign({ _id: foundUser._id?.toString(), name: foundUser.name }, env.JWT_SECRET, {
+      const token = jwt.sign({ _id: foundUser._id?.toString(), username: foundUser.username }, env.JWT_SECRET, {
         expiresIn: '20 days',
       });
 
       return {
         user: {
-          id: user._id,
-          name: user.name,
-          surname: user.surname,
-          lastname: user.lastname,
-          username: user.username,
+          name: foundUser.name,
+          surname: foundUser.surname,
+          lastname: foundUser.lastname,
+          username: foundUser.username,
         }, token: token
       };
     } else {
