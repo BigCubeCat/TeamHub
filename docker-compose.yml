@@ -1,5 +1,5 @@
 services:
-  mongodb_container:
+  mongo:
     image: mongo:latest
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
@@ -17,7 +17,7 @@ services:
     depends_on:
       - redis
     build: ./notif
-    restart: on-failure
+    restart: always
     ports:
       - ${NOTIFER_WEBSOCKET_PORT}:${NOTIFER_WEBSOCKET_PORT}
       - ${NOTIFER_PORT}:${NOTIFER_PORT}
@@ -26,6 +26,20 @@ services:
       - UPDATE_DELAY=${WS_UPDATE_DELAY}
       - WS_PORT=${NOTIFER_WEBSOCKET_PORT}
       - EXPRESS_PORT=${NOTIFER_PORT}
+    stdin_open: true
+    tty: true
+
+  userauth:
+    depends_on:
+      - mongo
+    build: ./user_auth
+    restart: always
+    ports:
+      - ${USER_PORT}:${USER_PORT}
+    environment:
+      - USER_PORT=${USER_PORT}
+      - JWT_KEY=${JWT_KEY}
+      - MONGODB_URL=${MONGODB_URL}
     stdin_open: true
     tty: true
 
