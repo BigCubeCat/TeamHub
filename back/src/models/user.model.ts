@@ -9,6 +9,7 @@ export interface IUserDoc {
   surname: string;
   lastname: string;
   password: string;
+  avatar: string;
 }
 
 export interface I_UserDocument extends IUserDoc, mongoose.Document {
@@ -19,11 +20,13 @@ const UserSchema: mongoose.Schema<I_UserDocument> = new mongoose.Schema({
   name: { type: String, unique: false },
   surname: { type: String, unique: false },
   lastname: { type: String, unique: false },
+  avatar: { type: String, unique: false },
   password: { type: String, unique: false },
 });
 
 UserSchema.pre('save', async function(next) {
   const user = this;
+  user.avatar = "";
   if (user.isModified('password')) {
     user.password = await bcrypt.hash(user.password, saltRounds);
   }

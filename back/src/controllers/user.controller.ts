@@ -40,3 +40,14 @@ export const getUser = async (req: Request, res: Response) => {
     return res.status(500).send(getErrorMessage(error));
   }
 }
+
+export const patchMe = async (req: Request, res: Response) => {
+  try {
+    const token = (req as CustomRequest).token;
+    const tokenStirng = (typeof token === "string") ? token : token?._id;
+    const foundUser = await userServices.patchUser(tokenStirng, req.body);
+    res.status(200).send(foundUser);
+  } catch (error) {
+    return res.status(500).send(getErrorMessage(error));
+  }
+}

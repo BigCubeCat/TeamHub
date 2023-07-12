@@ -67,3 +67,18 @@ export async function getOtherUser(username: string) {
     throw error;
   }
 }
+
+export async function patchUser(_id: string, newData: any) {
+  try {
+    const foundUser = await UserModel.findOneAndUpdate({ _id }, newData, { upsert: true });
+    if (!foundUser) {
+      throw new Error("Error");
+    }
+    return foundUser;
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+}
+
+
