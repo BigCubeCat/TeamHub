@@ -12,19 +12,6 @@ export async function register(user: I_UserDocument): Promise<void> {
   }
 }
 
-export async function getUser(_id: string) {
-  try {
-    const foundUser = await UserModel.findOne({ _id });
-    if (!foundUser) {
-      throw new Error("User incorrect");
-    }
-    return foundUser;
-  } catch (error) {
-    console.log(error)
-    throw error;
-  }
-}
-
 export async function login(user: I_UserDocument) {
   try {
     const foundUser = await UserModel.findOne({ username: user.username });
@@ -55,4 +42,28 @@ export async function login(user: I_UserDocument) {
   }
 }
 
+export async function getUser(_id: string) {
+  try {
+    const foundUser = await UserModel.findOne({ _id });
+    if (!foundUser) {
+      throw new Error("User incorrect");
+    }
+    return foundUser;
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+}
 
+export async function getOtherUser(username: string) {
+  try {
+    const foundUser = await UserModel.findOne({ username });
+    if (!foundUser) {
+      throw new Error("User incorrect");
+    }
+    return foundUser;
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+}

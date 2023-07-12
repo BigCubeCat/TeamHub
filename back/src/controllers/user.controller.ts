@@ -12,6 +12,15 @@ export const loginOne = async (req: Request, res: Response) => {
   }
 };
 
+export const registerOne = async (req: Request, res: Response) => {
+  try {
+    await userServices.register(req.body);
+    res.status(200).send('Inserted successfully');
+  } catch (error) {
+    return res.status(500).send(getErrorMessage(error));
+  }
+};
+
 export const getMe = async (req: Request, res: Response) => {
   try {
     const token = (req as CustomRequest).token;
@@ -23,13 +32,11 @@ export const getMe = async (req: Request, res: Response) => {
   }
 };
 
-export const registerOne = async (req: Request, res: Response) => {
+export const getUser = async (req: Request, res: Response) => {
   try {
-    await userServices.register(req.body);
-    res.status(200).send('Inserted successfully');
+    const foundUser = await userServices.getOtherUser(req.params.username);
+    res.status(200).send(foundUser);
   } catch (error) {
     return res.status(500).send(getErrorMessage(error));
   }
-};
-
-
+}
