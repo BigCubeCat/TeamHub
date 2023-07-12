@@ -5,6 +5,6 @@ import * as meController from "../controllers/me.controller";
 const meRouter = express.Router();
 
 meRouter.get("/", meController.getMe);
-meRouter.post("/", meController.createMe);
+meRouter.patch("/", meController.patchMe);
 
 export default meRouter;

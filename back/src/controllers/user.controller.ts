@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { getErrorMessage } from '../utils/error';
 import * as userServices from '../service/user.service';
+import * as meServices from '../service/me.service';
 import { CustomRequest } from '../middleware/auth';
 
 export const loginOne = async (req: Request, res: Response) => {
@@ -15,6 +16,7 @@ export const loginOne = async (req: Request, res: Response) => {
 export const registerOne = async (req: Request, res: Response) => {
   try {
     await userServices.register(req.body);
+    await meServices.createConfig(req.body);
     res.status(200).send('Inserted successfully');
   } catch (error) {
     return res.status(500).send(getErrorMessage(error));
