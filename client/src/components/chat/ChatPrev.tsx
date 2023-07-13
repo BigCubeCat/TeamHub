@@ -36,8 +36,10 @@ export default function ChatPrev(props: {
   const isMobile = useIsMobile();
   if (isMobile) {
     return (
-      <ListItem alignItems="center">
-        <UserAva notif={props.chat.Notification} ava={ava} />
+      <ListItem
+        sx={{ marginLeft: 1 }}>
+        <UserAva notif={props.chat.Notification} ava={ava}
+        />
       </ListItem>
     );
   }
@@ -45,7 +47,6 @@ export default function ChatPrev(props: {
   return (
     <>
       <ListItem
-        alignItems="flex-start"
         onClick={() => console.log(props.chat.User)}
       >
         <ListItemAvatar>

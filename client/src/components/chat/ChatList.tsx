@@ -3,11 +3,13 @@ import "@style/components/Chat.scss";
 import { getAllChats } from "@/api/chats";
 
 import * as React from "react";
-import { IconButton, List } from "@mui/material";
+import { Box, Button, Divider, IconButton, List, Typography } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import ChatPrev from "./ChatPrev";
 import { userStore } from "@/store/user";
 import MyPageButton from "./MyPageButton";
+import { useIsMobile } from "@/utils/resize";
+import NewChatDialog from "../search/NewChatDialog";
 
 export default function FolderList() {
   const user = React.useSyncExternalStore(
@@ -15,6 +17,9 @@ export default function FolderList() {
     userStore.getSnapshot,
   );
   const [chatList, setChatList] = React.useState<TChatPreviewProps[]>([]);
+  const [searchIsOpen, setOpen] = React.useState<boolean>(false);
+  const openDialog = () => setOpen(true);
+  const isMobile = useIsMobile();
 
   React.useEffect(() => {
     const fetchAPI = async () => {
@@ -39,9 +44,20 @@ export default function FolderList() {
       {chatList.map((chat, i) => (
         <ChatPrev chat={chat} num={i} />
       ))}
-      <IconButton onClick={() => console.log("add")}>
-        <AddIcon />
-      </IconButton>
+
+      <Box sx={{
+        display: "felx", justifyContent: 'start',
+        alignItems: "center", marginTop: 5
+      }}>
+        {isMobile ? <IconButton onClick={openDialog}>
+          <AddIcon />
+        </IconButton> :
+          <Button variant="text" endIcon={<AddIcon />} onClick={openDialog}>
+            Добавить чат
+          </Button>
+        }
+      </Box>
+      {searchIsOpen && <NewChatDialog open={searchIsOpen} setOpen={setOpen} />}
     </List>
   );
 }

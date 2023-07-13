@@ -8,7 +8,9 @@ export default function MyPageButton(props: { user: TUser }) {
     return <Redirect to="/edit/" />;
   }
   return (
-    <IconButton onClick={() => setClicked(true)} sx={{ marginBottom: 3 }}>
+    <IconButton onClick={() => setClicked(true)} sx={{
+      width: "100%", justifyContent: 'center', display: "center"
+    }}>
       <Avatar src={props.user.Avatar} sx={{ width: 64, height: 64 }} />
     </IconButton>
   );

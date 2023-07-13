@@ -1,16 +1,20 @@
 import { TUser } from "@/types/user";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import "@style/components/User.scss";
 
 export default function UserTextData(props: { user: TUser }) {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+    <Paper sx={{
+      display: "flex", flexDirection: "column",
+      border: "solid", borderRadius: 2, borderColor: "gray",
+      padding: 2, marginTop: 1,
+    }} onClick={() => console.log("click")}>
       <Typography variant="h5" color="black">
         {props.user.Surname} {props.user.Name} {props.user.Lastname}
       </Typography>
-      <Button sx={{ width: "100%" }} variant="contained">
-        Написать
-      </Button>
-    </Box>
+      <Typography variant="h6" color="secondary">
+        @{props.user.Username}
+      </Typography>
+    </Paper>
   );
 }
