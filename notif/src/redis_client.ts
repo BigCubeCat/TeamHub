@@ -1,17 +1,17 @@
-import { RedisClientType, createClient } from 'redis';
+import { RedisClientType, createClient } from "redis";
 
 let client: RedisClientType;
 
 export function initRedisClient(port: number) {
-  client = createClient({ socket: { host: 'redis', port: port } });
+  client = createClient({ socket: { host: "redis", port: port } });
   connectClient();
 }
 
 function connectClient() {
   const fetchClient = async () => {
-    client.on('error', err => console.log('Redis Client Error', err));
+    client.on("error", (err) => console.log("Redis Client Error", err));
     await client.connect();
-  }
+  };
   fetchClient().catch(console.error);
 }
 
@@ -38,6 +38,5 @@ export async function getValue(key: string) {
  */
 export function delNotif(key: string) {
   const res = async () => await client.del(key);
-  res().catch(console.error)
+  res().catch(console.error);
 }
-
