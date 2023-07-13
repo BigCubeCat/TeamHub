@@ -1,4 +1,4 @@
-notif/node_modules/*
-notif/build/*
+notifer/node_modules/*
+notifer/build/*
 back/node_modules/*
 back/build/*
