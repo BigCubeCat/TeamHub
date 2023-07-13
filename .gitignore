@@ -1,4 +1,6 @@
 notifer/node_modules/*
 notifer/build/*
-back/node_modules/*
-back/build/*
+api/node_modules/*
+api/build/*
+client/node_modules/*
+client/build/*
