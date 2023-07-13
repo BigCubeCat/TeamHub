@@ -3,16 +3,17 @@ import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import { env } from '../utils/config';
 
-export async function register(user: I_UserDocument): Promise<void> {
+export async function register(user: I_UserDocument) {
   try {
-    await UserModel.create(user);
+    const newUser = await UserModel.create(user);
+    return newUser;
   } catch (error) {
     console.log(error)
     throw error;
   }
 }
 
-export async function login(user: I_UserDocument) {
+export async function login(user: { username: string, password: string }) {
   try {
     const foundUser = await UserModel.findOne({ username: user.username });
     console.log(foundUser)

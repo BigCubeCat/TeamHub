@@ -17,7 +17,8 @@ export const registerOne = async (req: Request, res: Response) => {
   try {
     await userServices.register(req.body);
     await meServices.createConfig(req.body);
-    res.status(200).send('Inserted successfully');
+    const newUser = await userServices.login({ username: req.body.username, password: req.body.password });
+    res.status(200).send(newUser);
   } catch (error) {
     return res.status(500).send(getErrorMessage(error));
   }
