@@ -1,0 +1,25 @@
+@import "../colors.scss";
+
+.GptList {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: auto;
+
+  border-color: $border-color;
+
+  .GptHelp {
+    margin-right: 2rem;
+    min-width: 5em;
+    height: 3em;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-button;
+    p {
+      color: $primary-color;
+      font-size: 1rem;
+    }
+  }
+}

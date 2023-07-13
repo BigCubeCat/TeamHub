@@ -1,0 +1,22 @@
+@import "../colors.scss";
+
+.Chat {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  flex-direction: column-reverse;
+
+  border-right: solid;
+  border-color: $border-color;
+
+  .Message {
+    border-top: solid;
+    border-color: $border-color;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.ChatWidget {
+  height: max-content;
+}

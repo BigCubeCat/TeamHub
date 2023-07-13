@@ -1,0 +1,25 @@
+@import "../colors.scss";
+
+.MainContainer {
+  width: 100vw;
+  min-height: 98vh;
+  background-color: $main-color;
+  display: flex;
+}
+
+.Page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SideBar {
+  border-left: solid;
+  border-right: solid;
+  border-color: $border-color;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}

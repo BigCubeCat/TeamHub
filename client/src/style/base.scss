@@ -1,0 +1,14 @@
+@import "./basic/TextField.scss";
+@import "./messanger/gpt.scss";
+@import "./messanger/Chat.scss";
+@import "./components/Avatar.scss";
+@import "./components/Chat.scss";
+@import "./components/ChatPrev.scss";
+@import "./components/Login.scss";
+@import "./components/Main.scss";
+@import "./components/User.scss";
+
+input {
+  outline: none;
+  border: 0;
+}
