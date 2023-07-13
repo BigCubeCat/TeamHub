@@ -8,7 +8,9 @@ const userRouter = express.Router();
 userRouter.post('/login', userController.loginOne);
 userRouter.post('/register', userController.registerOne);
 userRouter.get('/me', auth, userController.getMe);
-userRouter.get('/:username/', auth, userController.getUser);
+userRouter.get('/name/:username/', auth, userController.getUser);
 userRouter.patch('/edit/', auth, userController.patchMe);
+
+userRouter.get("/search", auth, userController.search);
 
 export default userRouter;

@@ -82,4 +82,24 @@ export async function patchUser(_id: string, newData: any) {
   }
 }
 
-
+export async function searchUsers(username: string, name: string, surname: string) {
+  try {
+    const users = await UserModel.find({
+      username: { $regex: username },
+      name: { $regex: name },
+      surname: { $regex: surname }
+    }).limit(20);
+    const withoutPasswords = users.map(user => {
+      return {
+        username: user.username,
+        name: user.name,
+        surname: user.surname,
+        lastname: user.lastname
+      }
+    });
+    return withoutPasswords;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

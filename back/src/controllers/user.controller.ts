@@ -54,3 +54,15 @@ export const patchMe = async (req: Request, res: Response) => {
     return res.status(500).send(getErrorMessage(error));
   }
 }
+
+export const search = async (req: Request, res: Response) => {
+  try {
+    const stringUsername = (typeof req.query.username === "string") ? req.query.username : "";
+    const stringName = (typeof req.query.name === "string") ? req.query.name : "";
+    const stringSurname = (typeof req.query.surname === "string") ? req.query.surname : "";
+    const foundUsers = await userServices.searchUsers(stringUsername, stringName, stringSurname);
+    res.status(200).send({ users: foundUsers });
+  } catch (error) {
+    return res.status(500).send(getErrorMessage(error));
+  }
+}
