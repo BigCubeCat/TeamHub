@@ -1,5 +1,5 @@
 import { TUser } from "@/types/user";
-import { Box, Paper, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import "@style/components/User.scss";
 
 export default function UserTextData(props: { user: TUser }) {
