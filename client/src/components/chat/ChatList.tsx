@@ -10,24 +10,18 @@ import { userStore } from "@/store/user";
 import MyPageButton from "./MyPageButton";
 import { useIsMobile } from "@/utils/resize";
 import NewChatDialog from "../search/NewChatDialog";
+import { gptStore } from "@/store/gpt";
 
 export default function FolderList() {
   const user = React.useSyncExternalStore(
     userStore.subscribe,
     userStore.getSnapshot,
   );
-  const [chatList, setChatList] = React.useState<TChatPreviewProps[]>([]);
+  const chatList = React.useSyncExternalStore(gptStore.subscribe, gptStore.getSnapshot).chatList;
+  console.log(chatList);
   const [searchIsOpen, setOpen] = React.useState<boolean>(false);
   const openDialog = () => setOpen(true);
   const isMobile = useIsMobile();
-
-  React.useEffect(() => {
-    const fetchAPI = async () => {
-      const chats = await getAllChats("BigCubeCat" /*user.username*/);
-      setChatList(chats);
-    };
-    fetchAPI().catch(console.error);
-  }, []);
 
   return (
     <List

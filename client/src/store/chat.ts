@@ -1,6 +1,11 @@
 import { TMessage } from "@/types/message";
 type TChatStore = { id: string; messages: TMessage[] };
-const chat: TChatStore = { id: "", messages: [] };
+const chat: TChatStore = {
+  id: "", messages: [
+    { Text: "Егор, ты сделал стартовый экран?", isMy: false },
+    { Text: "Почти...", isMy: true },
+  ]
+};
 let listeners: any[] = [];
 
 export const chatStore = {

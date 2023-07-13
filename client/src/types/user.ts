@@ -7,6 +7,7 @@ export type TUser = {
 };
 
 export type TChatPreviewProps = {
+  ChatId: string;
   User: TUser;
   Notification: boolean;
 };

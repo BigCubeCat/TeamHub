@@ -43,7 +43,7 @@ export default function NewChatDialog(props: {
         </Tabs>
         {screen === 0 ?
           <Box>
-            <UserSearch />
+            <UserSearch single={true} />
           </Box> :
           <Box></Box>}
       </Box>

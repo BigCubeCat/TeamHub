@@ -1,10 +1,20 @@
-type TGptHelp = { loaded: boolean; answers: string[] };
-const gptHelps: TGptHelp = { loaded: false, answers: [] };
+import { TChatPreviewProps } from "@/types/user";
+
+type TGptHelp = { loaded: boolean; answers: string[], chatList: TChatPreviewProps[] };
+const gptHelps: TGptHelp = { loaded: false, answers: [], chatList: [] };
 let listeners: any[] = [];
 
 export const gptStore = {
   setAnswers(helps: string[]) {
     gptHelps.answers = helps;
+    emitChange();
+  },
+  setChatList(list: TChatPreviewProps[]) {
+    gptHelps.chatList = list;
+    emitChange();
+  },
+  addChat(chat: TChatPreviewProps) {
+    gptHelps.chatList.push(chat);
     emitChange();
   },
   addHelp(help: string) {
