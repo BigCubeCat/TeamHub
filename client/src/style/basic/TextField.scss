@@ -1,0 +1,16 @@
+@import "../colors.scss";
+
+.Input {
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 10px;
+  width: 100%;
+  background-color: $border-color;
+  color: $input-text-color;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+}

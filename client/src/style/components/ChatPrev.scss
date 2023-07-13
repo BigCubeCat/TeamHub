@@ -1,0 +1,27 @@
+@import "../colors.scss";
+@import "./Avatar.scss";
+
+.ChatPrevContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+  padding: 15px;
+  max-width: 100px;
+
+  .Title {
+    .Header {
+      color: $title-text-color;
+
+      /* Body/01 */
+      font-size: 14px;
+      font-family: Mulish;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+    }
+    .Nick {
+      color: $secondary-text-color;
+    }
+  }
+}
