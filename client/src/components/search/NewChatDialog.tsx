@@ -22,6 +22,8 @@ export default function NewChatDialog(props: {
       onClose={handleClose}
     >
       <AppBar sx={{ position: 'relative' }}>
+        <Typography >Найти коллегу</Typography>
+        {/*
         <Toolbar>
           <IconButton
             edge="start"
@@ -35,17 +37,10 @@ export default function NewChatDialog(props: {
             Создать чат
           </Typography>
         </Toolbar>
+        */}
       </AppBar>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={screen} onChange={handleChange}>
-          <Tab label="Item One" id="0" />
-          <Tab label="Item Two" id="1" />
-        </Tabs>
-        {screen === 0 ?
-          <Box>
-            <UserSearch single={true} handleClose={handleClose} />
-          </Box> :
-          <Box></Box>}
+        <UserSearch single={true} handleClose={handleClose} />
       </Box>
     </Dialog>
   );
