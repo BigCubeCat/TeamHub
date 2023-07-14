@@ -1,9 +1,9 @@
 import { TMessage } from "@/types/message";
-type TChatStore = { id: string; messages: TMessage[] };
+type TChatStore = { needUpdate: boolean, id: string; messages: TMessage[] };
 const chat: TChatStore = {
-  id: "", messages: [
-    { Text: "Егор, ты сделал стартовый экран?", isMy: false },
-    { Text: "Почти...", isMy: true },
+  needUpdate: false, id: "fuck_q", messages: [
+    { text: "Егор, ты сделал стартовый экран?", isMy: false },
+    { text: "Почти...", isMy: true },
   ]
 };
 let listeners: any[] = [];
@@ -11,8 +11,11 @@ let listeners: any[] = [];
 export const chatStore = {
   setId(text: string) {
     chat.id = text;
-    //TODO get messages from API
     chat.messages = [];
+    emitChange();
+  },
+  addMessage(text: string) {
+    chat.messages.push({ text, isMy: true });
     emitChange();
   },
   subscribe(listener: any) {

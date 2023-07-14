@@ -25,11 +25,12 @@ export const loadMessages = async (req: Request, res: Response) => {
 export const createMessage = async (req: Request, res: Response) => {
   try {
     const username = getStringToken(req);
+    console.log({ username, chatId: req.body.chatId });
     if (req.body.chatId.includes(username)) {
       // If message author in chat
       await messagesServices.createMessage({ ...req.body, author: username });
     } else {
-      res.status(403).send("Forbidden");
+      return res.status(403).send("Forbidden");
     }
     res.status(200).send("Success");
   } catch (error) {
