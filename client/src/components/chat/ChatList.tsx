@@ -12,7 +12,7 @@ import { useIsMobile } from "@/utils/resize";
 import NewChatDialog from "../search/NewChatDialog";
 import { gptStore } from "@/store/gpt";
 
-export default function FolderList() {
+export default function ChatList() {
   const user = React.useSyncExternalStore(
     userStore.subscribe,
     userStore.getSnapshot,
