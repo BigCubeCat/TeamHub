@@ -1,6 +1,7 @@
+import { loadChat } from "@/api/chats";
 import { TMessage } from "@/types/message";
 type TChatStore = { needUpdate: boolean, id: string; messages: TMessage[] };
-const chat: TChatStore = {
+let chat: TChatStore = {
   needUpdate: false, id: "fuck_q", messages: [
     { text: "Егор, ты сделал стартовый экран?", isMy: false },
     { text: "Почти...", isMy: true },
@@ -9,13 +10,16 @@ const chat: TChatStore = {
 let listeners: any[] = [];
 
 export const chatStore = {
-  setId(text: string) {
-    chat.id = text;
-    chat.messages = [];
+  setId(text: string, token: string) {
+    chat = { ...chat, id: text, messages: [] };
+    const fetchNewMessages = async () => {
+      await loadChat(token, chat.id, 0);
+    };
+    fetchNewMessages().catch(console.error);
     emitChange();
   },
   addMessage(text: string) {
-    chat.messages.push({ text, isMy: true });
+    chat = { ...chat, messages: [...chat.messages, { text, isMy: true }] };
     emitChange();
   },
   subscribe(listener: any) {
@@ -30,6 +34,7 @@ export const chatStore = {
 };
 
 function emitChange() {
+  console.log(chat);
   for (const listener of listeners) {
     listener();
   }

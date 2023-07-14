@@ -1,32 +1,33 @@
 import { TChatPreviewProps } from "@/types/user";
 
 type TGptHelp = { loaded: boolean; answers: string[], chatList: TChatPreviewProps[] };
-const gptHelps: TGptHelp = { loaded: false, answers: [], chatList: [] };
+let gptHelps: TGptHelp = { loaded: false, answers: [], chatList: [] };
 let listeners: any[] = [];
 
 export const gptStore = {
   setAnswers(helps: string[]) {
-    gptHelps.answers = helps;
+    gptHelps = { ...gptHelps, answers: helps };
     emitChange();
   },
   setChatList(list: TChatPreviewProps[]) {
-    gptHelps.chatList = list;
+    gptHelps = { ...gptHelps, chatList: list };
     emitChange();
   },
   addChat(chat: TChatPreviewProps) {
-    gptHelps.chatList.push(chat);
+    gptHelps = { ...gptHelps, chatList: [...gptHelps.chatList, chat] };
     emitChange();
   },
   addHelp(help: string) {
     gptHelps.answers.push(help);
+    console.log(gptHelps.answers)
     emitChange();
   },
   setLoaded() {
-    gptHelps.loaded = true;
+    gptHelps = { ...gptHelps, loaded: true };
     emitChange();
   },
   deleteHelp(value: string) {
-    gptHelps.answers = gptHelps.answers.filter((help) => help != value);
+    gptHelps = { ...gptHelps, answers: gptHelps.answers.filter((help) => help != value) };
     emitChange();
   },
   subscribe(listener: any) {

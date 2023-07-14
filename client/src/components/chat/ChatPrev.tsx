@@ -11,6 +11,9 @@ import {
 } from "@mui/material";
 import { NotifBage } from "./NotifBage";
 import { useIsMobile } from "@/utils/resize";
+import { chatStore } from "@/store/chat";
+import { joinUsernames } from "@/utils/chat";
+import { userStore } from "@/store/user";
 
 const UserAva = (props: { notif: boolean; ava: any }) => {
   if (props.notif) {
@@ -31,6 +34,7 @@ export default function ChatPrev(props: {
   chat: TChatPreviewProps;
   num: number;
 }) {
+  const user = React.useSyncExternalStore(userStore.subscribe, userStore.getSnapshot);
   const ava = <Avatar src={props.chat.User.Avatar} />;
 
   const isMobile = useIsMobile();
@@ -47,7 +51,7 @@ export default function ChatPrev(props: {
   return (
     <>
       <ListItem
-        onClick={() => console.log(props.chat.User)}
+        onClick={() => chatStore.setId(joinUsernames([user.Username, props.chat.User.Username]))}
       >
         <ListItemAvatar>
           <UserAva notif={props.chat.Notification} ava={ava} />

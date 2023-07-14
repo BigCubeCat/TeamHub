@@ -6,8 +6,6 @@ import { messageStore } from "@/store/message";
 export default function HelpBubble(props: { help: string }) {
   const handleClick = () => {
     messageStore.setMessage(props.help);
-
-    console.log(props.help);
   };
   return (
     <Chip
