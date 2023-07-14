@@ -15,7 +15,7 @@ export async function loadOtherUser(
         Authorization: `Bearer ${token}`,
       },
     })
-    .then(function (response) {
+    .then(function(response) {
       console.log(response.data);
       callback({
         Username: response.data.username,
@@ -25,10 +25,27 @@ export async function loadOtherUser(
         Avatar: response.data.avatar,
       });
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
     });
 }
+
+export async function loadChat(
+  token: string, text: string, chatId: string, page: number
+) {
+  await axios.get(`${API_ADDRESS}/message/get?chatId=${chatId}&page=${page}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(function(response) {
+    console.log(response.data);
+  })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+};
 
 export async function getAllChats(username: string) {
   /*

@@ -7,9 +7,13 @@ import { getStringToken } from "../utils/auth";
 export const loadMessages = async (req: Request, res: Response) => {
   try {
     const page = (typeof req.query.page === "string") ? Number(req.query.page) : 0;
+    console.log("page = ", page);
+    const chatId = (typeof req.query.chat_id === "string") ? "" + req.query.chat_id : "";
+    console.log("chatId = ", chatId);
     const username = getStringToken(req);
-    if (req.body.chatId.includes(username)) {
-      const messages = await messagesServices.loadChat(req.body.chatId, page);
+    console.log(username);
+    if (chatId.includes(username)) {
+      const messages = await messagesServices.loadChat(chatId, page);
       return res.status(200).send({ messages: messages });
     }
     res.status(403).send("Forbidden");
