@@ -19,13 +19,14 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { TUserFormController, defaultUserForm } from "./formController";
 import { TUser } from "@/types/user";
 import { userStore } from "@/store/user";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const user = React.useSyncExternalStore(
     userStore.subscribe,
     userStore.getSnapshot,
   );
-
+  const notify = () => toast("Wow so easy!");
   const [form, setForm] = React.useState<TUserFormController>(defaultUserForm);
   const [userData, setUserData] = React.useState<{
     user: TUser;
@@ -53,7 +54,7 @@ export default function Login() {
     const f = async () => {
       await loginUser(form.username, form.password, setUserData);
     };
-    f().catch(console.error);
+    f().catch(notify);
   };
   if (userData?.token) {
     setCookie("token", userData?.token, { path: "/" });
