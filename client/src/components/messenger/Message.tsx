@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useSyncExternalStore } from "react";
 
 import "@/style/messanger/Chat.scss";
 import SendIcon from "@mui/icons-material/Send";
 import { Box, IconButton, TextField } from "@mui/material";
 import { messageStore } from "@/store/message";
+import { chatStore } from "@/store/chat";
+import { sendMessage } from "@/api/chats";
+import { useCookies } from "react-cookie";
 
 export default function Message() {
+  const chat = useSyncExternalStore(chatStore.subscribe, chatStore.getSnapshot);
+  const [cookies] = useCookies(["token"]);
   const message = React.useSyncExternalStore(
     messageStore.subscribe,
     messageStore.getSnapshot,
@@ -15,7 +20,12 @@ export default function Message() {
     messageStore.setMessage(newValue);
   };
   const handleClick = () => {
-    // TODO API callback
+    if (message === "") {
+      return;
+    }
+    // отправка сообщения
+    sendMessage(cookies.token, chat.id, message);
+    chatStore.addMessage(message);
     messageStore.resetMessage();
   };
 

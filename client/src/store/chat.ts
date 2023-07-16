@@ -1,13 +1,25 @@
+import { loadChat } from "@/api/chats";
 import { TMessage } from "@/types/message";
-type TChatStore = { id: string; messages: TMessage[] };
-const chat: TChatStore = { id: "", messages: [] };
+type TChatStore = { needUpdate: boolean, id: string; messages: TMessage[] };
+let chat: TChatStore = {
+  needUpdate: false, id: "fuck_q", messages: [
+    { text: "Егор, ты сделал стартовый экран?", isMy: false },
+    { text: "Почти...", isMy: true },
+  ]
+};
 let listeners: any[] = [];
 
 export const chatStore = {
-  setId(text: string) {
-    chat.id = text;
-    //TODO get messages from API
-    chat.messages = [];
+  setId(text: string, token: string) {
+    chat = { ...chat, id: text, messages: [] };
+    const fetchNewMessages = async () => {
+      await loadChat(token, chat.id, 0);
+    };
+    fetchNewMessages().catch(console.error);
+    emitChange();
+  },
+  addMessage(text: string) {
+    chat = { ...chat, messages: [...chat.messages, { text, isMy: true }] };
     emitChange();
   },
   subscribe(listener: any) {
@@ -22,6 +34,7 @@ export const chatStore = {
 };
 
 function emitChange() {
+  console.log(chat);
   for (const listener of listeners) {
     listener();
   }

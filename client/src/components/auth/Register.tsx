@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "wouter";
 
 import "@style/components/Login.scss";
@@ -12,6 +12,7 @@ import {
   IconButton,
   InputAdornment,
   Button,
+  Alert,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { TUserFormController } from "./formController";
@@ -20,6 +21,7 @@ import { TUser } from "@/types/user";
 import { userStore } from "@/store/user";
 import UploadAvatar from "../user/UploadAvatar";
 import { useCookies } from "react-cookie";
+import { toast } from "react-toastify";
 
 // TODO  разделить это на 2 формы
 
@@ -28,6 +30,8 @@ export default function Register() {
     userStore.subscribe,
     userStore.getSnapshot,
   );
+
+  const [error, setError] = useState<string>("");
   const defaultUserForm: TUserFormController = {
     username: user.Username,
     name: user.Name,
@@ -81,6 +85,16 @@ export default function Register() {
   }
 
   const submitForm = () => {
+    if (form.password !== form.repeatPassword) {
+      setError("Пароли не совпадают");
+      return;
+    } else if (form.password == "") {
+      setError("Пароль не может быть пустым");
+      return;
+    } else if (form.name == "" || form.username == "" || form.surname == "") {
+      setError("Только Отчество может быть пустым");
+      return;
+    }
     const user: TUser = {
       Username: form.username,
       Name: form.name,
@@ -183,6 +197,7 @@ export default function Register() {
             <a>Войти</a>
           </Link>
         </Typography>
+        {error && <Alert severity="error">{error}</Alert>}
       </Box>
     </Box>
   );

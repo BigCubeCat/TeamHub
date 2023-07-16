@@ -10,6 +10,7 @@ import indexRouter from "./routes/index";
 import usersRouter from "./routes/userRouter";
 import meRouter from "./routes/meRouter";
 import { auth } from "./middleware/auth";
+import messageRouter from "./routes/messagesRouter";
 
 mongoose.connect(env.MONGODB_URL);
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/me", auth, meRouter);
+app.use("/message", auth, messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -11,7 +11,7 @@ export default function Chat() {
     <Box className="Chat">
       <Message />
       <Gpt />
-      <ChatWidget messages={[]} />
+      <ChatWidget />
     </Box>
   );
 }

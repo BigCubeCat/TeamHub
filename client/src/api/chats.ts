@@ -15,7 +15,7 @@ export async function loadOtherUser(
         Authorization: `Bearer ${token}`,
       },
     })
-    .then(function (response) {
+    .then(function(response) {
       console.log(response.data);
       callback({
         Username: response.data.username,
@@ -25,20 +25,37 @@ export async function loadOtherUser(
         Avatar: response.data.avatar,
       });
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
     });
 }
 
-export async function getAllChats(username: string) {
-  /*
-  const json = await ky.get(API_ADDRESS, { json: { username } }).json();
-  return json;
-  */
-  const users: TChatPreviewProps[] = [
-    { User: { Username: "BigCubeCat", Name: "Егор" }, Notification: true },
-    { User: { Username: "Cat", Name: "Иван" }, Notification: false },
-    { User: { Username: "username", Name: "Петр" }, Notification: false },
-  ];
-  return users;
+export async function loadChat(
+  token: string, chatId: string, page: number
+) {
+  await axios.get(`${API_ADDRESS}/message/get?chatId=${chatId}&page=${page}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(function(response) {
+    console.log(response.data);
+  }).catch(function(error) {
+    console.log(error);
+  });
+}
+
+export async function sendMessage(token: string, chatId: string, text: string) {
+  await axios.post(`${API_ADDRESS}/message/new`, {
+    text, chatId
+  }, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    }
+  }).then(function(response) {
+    console.log(response);
+  }).catch(function(error) {
+    console.log(error);
+  });
 }

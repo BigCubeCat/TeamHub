@@ -1,4 +1,4 @@
 export type TMessage = {
-  Text: string;
+  text: string;
   isMy: boolean;
 };

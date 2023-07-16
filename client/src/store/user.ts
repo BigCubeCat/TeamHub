@@ -2,9 +2,9 @@ import { TUser } from "@/types/user";
 
 const defaultUser: TUser = {
   Username: "",
-  Name: "Егор",
-  Surname: "Биточкин",
-  Lastname: "Иванович",
+  Name: "",
+  Surname: "",
+  Lastname: "",
 };
 let user: TUser = defaultUser;
 let userListeners = [];

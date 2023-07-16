@@ -16,21 +16,20 @@ export default function HelpList() {
     gptStore.subscribe,
     gptStore.getSnapshot,
   ).answers;
+  console.log("helps = ", helps);
   const [cookies] = useCookies(["token"]);
-  const [answers, setAnswers] = React.useState(helps);
   const [newBubble, setNewBubble] = React.useState("");
 
   const handleDelete = (chipToDelete: string) => () => {
-    const newAnswers = answers.filter((answer) => answer !== chipToDelete);
+    const newAnswers = helps.filter((help) => help !== chipToDelete);
     gptStore.setAnswers(newAnswers);
-    setAnswers(newAnswers);
   };
 
   const handleClick = () => {
     gptStore.addHelp(newBubble);
     setNewBubble("");
     const fetchAPI = async () => {
-      setConfig(cookies.token, answers);
+      setConfig(cookies.token, helps);
     };
     fetchAPI().catch(console.error);
   };
@@ -47,7 +46,7 @@ export default function HelpList() {
         }}
         component="ul"
       >
-        {answers.map((data) => {
+        {helps.map((data) => {
           return (
             <ListItem key={data}>
               <Chip label={data} onDelete={handleDelete(data)} />

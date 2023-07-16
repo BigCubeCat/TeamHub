@@ -1,4 +1,3 @@
-import * as userServices from "./user.service";
 import MeModel, { I_MeDocument } from "../models/me.model";
 import { Error } from "mongoose";
 
